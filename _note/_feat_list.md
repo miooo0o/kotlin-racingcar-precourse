@@ -1,11 +1,15 @@
 #### Feat-list
 _last update: 15. April_
 
+---
 
-### Project Setup
-- [ ] Confirm Kotlin version is 1.9.24
-- [x] Ensure build.gradle.kts contains correct plugin version
-- [ ] Run `./gradlew clean test` and confirm failure (baseline)
+### priority 
+- [ ] <<< Car
+- [ ] << Validate or CarFactory
+- [ ] ... last -> CarSnapShot (if needed)
+
+### update
+- [ ] better fun/class names
 
 ### Ideas
 - [ ] Crate validate process
@@ -18,19 +22,27 @@ _last update: 15. April_
 
 ---
 
-## class
+### Project Setup
+- [ ] Confirm Kotlin version is 1.9.24
+- [x] Ensure build.gradle.kts contains correct plugin version
+- [ ] Run `./gradlew clean test` and confirm failure (baseline)
+
+### class
 #### Car
-- [ ] Create `Car` class (name, position, moveIf)
-  - [ ] name
-  - [ ] moved `List<int>`
+- [ ] Create `Car` class (name, moves, moveIf)
+  - [x] name
+  - [x] _moves `mutableListOf<Int>` and  moves `List<Int>` (read-only)
   - [x] ~~positions `List<int>`~~ -> replaced with moves List<Int> to track raw movement history (0 or 1) per round, allowing flexible computation of position and easier logging
+
 #### CarSnapshot
 - [ ] Create `CarSnapshot` data class (immutable snapshot, Logging)
+
 #### Optional 
 - [ ] (Optional) Create `CarFactory` for input parsing
 
 #### RacingCar (`CarRace` <- find better nam )
 - [ ] Implement `CarRace` (manage rounds, notify observers)
+
 #### Observer & Logger
 - [ ] Define and implement `RaceObserver` interface
 - [ ] Create `RaceLogger` to record state history
