@@ -33,4 +33,11 @@ class Car(val name: String) {
 		require(round >= 0) { "Round cannot be negative" }
 		return moves.take(round).sum()
 	}
+
+// TODO(check-point): should think more do I need this methods at CarRace.tk
+//	fun didMoveAt(round: Int): Boolean {
+//	}
+//
+//	fun hasMoved(): Boolean {
+//	}
 }
