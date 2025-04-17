@@ -1,5 +1,5 @@
 #### Feat-list
-_last update: 15. April_
+_last update: 16. April_
 
 ---
 
@@ -8,17 +8,8 @@ _last update: 15. April_
 - [ ] << Validate or CarFactory
 - [ ] ... last -> CarSnapShot (if needed)
 
-### update
-- [ ] better fun/class names
-
 ### Ideas
-- [ ] Crate validate process
-
-### Validate Process should includes...
-- [ ] if inputs are not alpha || number 
-- [ ] name = split(,) -> if (!name is alphas)
-- [ ] if (name.length > 5)
-- [ ] if round < 1
+- [x] think about validate process
 
 ---
 
@@ -27,7 +18,33 @@ _last update: 15. April_
 - [x] Ensure build.gradle.kts contains correct plugin version
 - [ ] Run `./gradlew clean test` and confirm failure (baseline)
 
-### class
+### Detail
+
+### Application Logic
+- [ ] Implement `Application.main()` to:
+  - [ ] Get user input
+  - [ ] Parse and validate names
+  - [ ] Read number of rounds
+  - [ ] Execute race and show results
+
+#### InputView 
+- [ ] read input Console.readLine()
+
+#### Validator
+- [ ] Create `Validator` object
+  - [ ] validate `name : List<String>`
+    - [ ] if inputs are not alpha || number
+    - [ ] name = split(,) -> if (!name is alphas)
+    - [ ] if (name.length > 5)
+  - [ ] validate `round`
+    - [ ] if round < 1 && round > MAX_ROUND
+#### InputHandler
+- [ ] Create `Handler`
+  - [ ] Add retry logic (up to 3 times) with error messages
+  - [ ] Handle conversion errors explicitly (e.g., round not a number)
+
+---
+
 #### Car
 - [ ] Create `Car` class (name, moves, moveIf)
   - [x] name
@@ -37,25 +54,32 @@ _last update: 15. April_
 #### CarSnapshot
 - [ ] Create `CarSnapshot` data class (immutable snapshot, Logging)
 
-#### Optional 
-- [ ] (Optional) Create `CarFactory` for input parsing
-
-#### RacingCar (`CarRace` <- find better nam )
+#### CarRace
+- [ ] !! find better name 
 - [ ] Implement `CarRace` (manage rounds, notify observers)
+
+---
 
 #### Observer & Logger
 - [ ] Define and implement `RaceObserver` interface
 - [ ] Create `RaceLogger` to record state history
 
-### Testing
-- [ ] Add input validation tests (invalid name, length)
+---
 
-### Application Logic
-- [ ] Implement `Application.main()` to:
-    - [ ] Get user input
-    - [ ] Parse and validate names
-    - [ ] Read number of rounds
-    - [ ] Execute race and show results
+### Testing
+
+Validator / InputHandler
+- [ ] Unit test: invalid names (empty, >5 chars, special chars)
+- [ ] Unit test: invalid round (non-numeric, <1, >MAX_ROUND)
+
+Car class
+- [ ] Unit test: moveIf(true) / moveIf(false)
+- [ ] Unit test: position(round) returns correct value
+
+CarRace
+- [ ] Unit test: race logic across multiple rounds
+- [ ] Unit test: handle multiple winners (equal position)
+- 
 
 ---
 
