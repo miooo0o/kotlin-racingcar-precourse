@@ -49,3 +49,9 @@ when (score) {
 }
 // when: match with value
 ```
+
+5. protection
+```kotlin
+private val _moves = mutableListOf<Int>()
+val moves: List<Int> get() = _moves.toList()
+```
