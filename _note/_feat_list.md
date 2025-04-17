@@ -4,12 +4,13 @@ _last update: 16. April_
 ---
 
 ### priority 
-- [ ] <<< Car
-- [ ] << Validate or CarFactory
-- [ ] ... last -> CarSnapShot (if needed)
+- [x] Car
+- [ ] InputHandler
+- [ ] Validate
+- [ ] CarFactory
 
 ### Ideas
-- [x] think about validate process
+- [x] Think about validate process
 
 ---
 
@@ -27,42 +28,41 @@ _last update: 16. April_
   - [ ] Read number of rounds
   - [ ] Execute race and show results
 
-#### InputView 
-- [ ] read input Console.readLine()
+#### InputHandler
+- [ ] read input Console.readLine() -> input.Handler
+- [ ] Create `Handler`
+  - [ ] Handle conversion errors explicitly (e.g., round not a number)
 
 #### Validator
-- [ ] Create `Validator` object
+- [ ] Create `Validator` object -> input.Validator
   - [ ] validate `name : List<String>`
     - [ ] if inputs are not alpha || number
-    - [ ] name = split(,) -> if (!name is alphas)
+    - [ ] name = split(,) -> if (!name is alphas && numbers)
     - [ ] if (name.length > 5)
   - [ ] validate `round`
-    - [ ] if round < 1 && round > MAX_ROUND
-#### InputHandler
-- [ ] Create `Handler`
-  - [ ] Add retry logic (up to 3 times) with error messages
-  - [ ] Handle conversion errors explicitly (e.g., round not a number)
+    - [ ] if round < 1 && round > MAX_ROUND (!! do I need?)
 
 ---
 
 #### Car
-- [ ] Create `Car` class (name, moves, moveIf)
+- [x] Create `Car` class (name, moves, moveIf)
   - [x] name
   - [x] _moves `mutableListOf<Int>` and  moves `List<Int>` (read-only)
   - [x] ~~positions `List<int>`~~ -> replaced with moves List<Int> to track raw movement history (0 or 1) per round, allowing flexible computation of position and easier logging
 
-#### CarSnapshot
-- [ ] Create `CarSnapshot` data class (immutable snapshot, Logging)
-
-#### CarRace
-- [ ] !! find better name 
-- [ ] Implement `CarRace` (manage rounds, notify observers)
+#### RacingGame
+- [x] find better name -> RacingGame  
+- [ ] Implement `RacingGame` (manage rounds, notify observers)
 
 ---
 
+### Optional
 #### Observer & Logger
 - [ ] Define and implement `RaceObserver` interface
 - [ ] Create `RaceLogger` to record state history
+
+#### CarSnapshot
+- [ ] Create `CarSnapshot` data class (immutable snapshot, Logging)
 
 ---
 
