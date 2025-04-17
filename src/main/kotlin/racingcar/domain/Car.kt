@@ -14,6 +14,11 @@ package racingcar.domain
  *   - A partial position (up to a round) can be queried for logging or testing.
  */
 class Car(val name: String) {
+	init {
+		require(name.length in 1..5) {
+			"The car name must be at least 1 character and no more than 5 characters. Input value: '$name'"
+		}
+	}
 
 	private val _moves = mutableListOf<Int>()
 	val         moves: List<Int> get() = _moves.toList()
