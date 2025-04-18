@@ -9,13 +9,13 @@ object InputHandler {
 	 *
 	 * @return List of validated car names
 	 * @throws IllegalArgumentException if names are invalid
-	 * @see Validator.validateNames
+	 * @see InputValidator.validateNames
 	 */
 	fun getValidateCarNames(): List<String> {
 		try {
 			println("Enter the names of the cars (comma-separated):")
 			val names : List<String> = parseNames(Console.readLine())
-			return Validator.validateNames(names)
+			return InputValidator.validateNames(names)
 		} catch (e: IllegalArgumentException) {
 			throw e
 		}
@@ -30,14 +30,14 @@ object InputHandler {
 	 *
 	 * @return number of rounds as validated Int
 	 * @throws IllegalArgumentException if input is not a valid round number
-	 *  @see Validator.validateRound
+	 *  @see InputValidator.validateRound
 	 */
 	fun getValidateRound(): Int {
 		try {
 			println("Enter the number of racing round(1-based): ")
 			val input = readInput()
 			val round = parseRound(input)
-			return Validator.validateRound(round)
+			return InputValidator.validateRound(round)
 		} catch (e: IllegalArgumentException) {
 			throw e
 		}

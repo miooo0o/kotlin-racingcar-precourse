@@ -1,11 +1,11 @@
 package racingcar.input
 
 /**
- * Validator is responsible for validating user inputs such as
+ * InputValidator is responsible for validating user inputs such as
  * car names and the number of racing rounds.
  * @throws IllegalArgumentException if any invalid
  */
-object Validator {
+object InputValidator {
 	/**
 	 * Validates a list of car names.
 	 *
