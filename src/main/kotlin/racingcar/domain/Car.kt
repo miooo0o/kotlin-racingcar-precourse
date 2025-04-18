@@ -41,8 +41,8 @@ class Car(val name: String) {
 	 * @param round index of the round (1-based)
 	 */
 	fun didMoveAt(round: Int): Boolean {
-		require(round in 1 until moves.size) {
-			"round should be..."
+		require(round in 1.. moves.size) {
+			"Round must be between 1 and ${moves.size} (inclusive)"
 		}
 		return _moves[round - 1] == 1
 	}
