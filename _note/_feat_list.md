@@ -1,16 +1,13 @@
 #### Feat-list
-_last update: 16. April_
+_last update: 18. April_
 
 ---
 
 ### priority 
 - [x] Car
 - [ ] InputHandler
-- [ ] Validate
+- [x] Validate
 - [ ] CarFactory
-
-### Ideas
-- [x] Think about validate process
 
 ---
 
@@ -34,24 +31,31 @@ _last update: 16. April_
   - [ ] Handle conversion errors explicitly (e.g., round not a number)
 
 #### Validator
-- [ ] Create `Validator` object -> input.Validator
-  - [ ] validate `name : List<String>`
-    - [ ] if inputs are not alpha || number
-    - [ ] name = split(,) -> if (!name is alphas && numbers)
-    - [ ] if (name.length > 5)
-  - [ ] validate `round`
-    - [ ] if round < 1 && round > MAX_ROUND (!! do I need?)
+- [x] Create `Validator` object → `input.Validator`
+  - [x] validate `name: List<String>`
+    - [x] Reject if name contains non-alphanumeric characters (only letters and digits allowed)
+    - [x] Split by `,` and trim whitespace from each name
+    - [x] Reject if name length exceeds 5 characters
+    - [x] Reject if duplicate names exist (case-insensitive)
+  - [x] Validate `round: Int`
+    - [x] Reject if round < 1
+    - [ ] Reject if round > MAX_ROUND (still under consideration)
 
 ---
 
 #### Car
 - [x] Create `Car` class (name, moves, moveIf)
-  - [x] name
-  - [x] _moves `mutableListOf<Int>` and  moves `List<Int>` (read-only)
-  - [x] ~~positions `List<int>`~~ -> replaced with moves List<Int> to track raw movement history (0 or 1) per round, allowing flexible computation of position and easier logging
+  - [x] `val name` — car's name, validated on creation (1~5 characters)
+  - [x] `val _moves: MutableList<Int>` — internal record of movement history (0 or 1 per round)
+  - [x] `val moves: List<Int>` — read-only view of `_moves` (used for position tracking and logging)
+  - [x] ~~positions `List<Int>`~~ → replaced with `moves` to record raw movement (0 or 1) for flexibility
+  - [x] `fun moveIf(condition: Boolean)` — adds 1 if moved, 0 if not
+  - [x] `fun totalDistance(): Int` — total distance (sum of moves)
+  - [x] `fun distanceUntil(round: Int): Int` — distance moved up to and including the given round (1-based)
+  - [x] `fun didMoveAt(round: Int): Boolean` — check whether the car moved at a specific round (1-based)
 
 #### RacingGame
-- [x] find better name -> RacingGame  
+- [x] Find better name -> RacingGame  
 - [ ] Implement `RacingGame` (manage rounds, notify observers)
 
 ---
