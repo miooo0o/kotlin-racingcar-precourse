@@ -5,7 +5,7 @@ package racingcar.domain
  *
  * @property name the identifier of the car (must be validated externally)
  * @property moves immutable view of movement history per round
- *     - Index = round number
+ *     - Index = `round number - 1` (0-based index for 1-based round)
  *     - Value = moved distance in that round (0 or 1)
  *
  * The car moves forward only when `moveIf(true)` is called,
@@ -37,24 +37,48 @@ class Car(val name: String) {
 	}
 
 	/**
-	 * Returns total distance moved (sum of all rounds)
+	 * Checks if the car moved in the specified round.
+	 * @param round index of the round (1-based)
 	 */
-	fun position(): Int = _moves.sum()
-
-	/**
-	 * Returns distance moved up to a specific round (exclusive).
-	 * For logging or analysis per round.
-	 * @throws IllegalArgumentException if round is negative
-	 */
-	fun position(round: Int): Int {
-		require(round >= 0) { "Round cannot be negative" }
-		return moves.take(round).sum()
+	fun didMoveAt(round: Int): Boolean {
+		require(round in 1 until moves.size) {
+			"round should be..."
+		}
+		return _moves[round - 1] == 1
 	}
 
-// TODO(check-point): should think more do I need this methods at CarRace.tk
-//	fun didMoveAt(round: Int): Boolean {
-//	}
-//
-//	fun hasMoved(): Boolean {
-//	}
+	/**
+	 * Returns true if the car has moved at least once.
+	 */
+	fun hasMove(): Boolean {
+		return _moves.any { it == 1 }
+	}
+
+	/**
+	 * Returns the total distance moved (sum of all movements).
+	 */
+	fun totalDistance(): Int {
+		return _moves.sum()
+	}
+
+	/**
+	 * Returns the total distance moved up to and including the specified round (1-based).
+	 * For example:
+	 *   round = 1 → includes round 1 (index 0)
+	 *   round = 2 → includes rounds 1 and 2 (index 0 and 1)
+	 * Internally uses `take(round)` since round represents the number of rounds to include.
+	 *
+	 * @param round the 1-based round number (must be in 1..moves.size)
+	 * @throws IllegalArgumentException if round is out of bounds
+	 */
+	fun distanceUntil(round: Int): Int {
+		require(round in 1..moves.size) {
+			"Round must be between 1 and ${moves.size} (inclusive)"
+		}
+		return _moves.take(round).sum()
+	}
+
+	fun getRecode() : List<Int> {
+		return moves
+	}
 }
