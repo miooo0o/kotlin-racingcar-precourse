@@ -26,12 +26,12 @@ _last update: 18. April_
   - [ ] Execute race and show results
 
 #### InputHandler
-- [ ] read input Console.readLine() -> input.Handler
-- [ ] Create `Handler`
-  - [ ] Handle conversion errors explicitly (e.g., round not a number)
+- [x] read input Console.readLine() -> input.Handler
+- [x] Create ` InputHandler`
+  - [x] Handle conversion errors explicitly (e.g., round not a number)
 
-#### Validator
-- [x] Create `Validator` object → `input.Validator`
+#### InputValidator
+- [x] Create ` InputValidator` object → `input. InputValidator`
   - [x] validate `name: List<String>`
     - [x] Reject if name contains non-alphanumeric characters (only letters and digits allowed)
     - [x] Split by `,` and trim whitespace from each name
@@ -72,15 +72,21 @@ _last update: 18. April_
 
 ### Testing
 
-Validator / InputHandler
+
+#### InputValidator / InputHandler
 - [ ] Unit test: invalid names (empty, >5 chars, special chars)
 - [ ] Unit test: invalid round (non-numeric, <1, >MAX_ROUND)
+- [ ] Unit test: duplicate names (case-insensitive check)
+- [ ] Unit test: trimmed input parsing
 
-Car class
-- [ ] Unit test: moveIf(true) / moveIf(false)
-- [ ] Unit test: position(round) returns correct value
+#### Car class
+- [x] Unit test: moveIf(true) / moveIf(false)
+- [x] Unit test: totalDistance() returns correct sum
+- [x] Unit test: distanceUntil(round) returns correct value
+- [x] Unit test: didMoveAt(round) returns correct boolean
+- [x] Unit test: hasMove() returns correct result
 
-CarRace
+#### RacingGame
 - [ ] Unit test: race logic across multiple rounds
 - [ ] Unit test: handle multiple winners (equal position)
 - 
