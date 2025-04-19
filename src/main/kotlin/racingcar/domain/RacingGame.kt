@@ -26,24 +26,53 @@ class RacingGame(private val cars: List<Car>) {
 	fun getHistory(): RaceResult = history
 
 	/**
+	 * Runs the race for the given number of rounds.
+	 * Moves all cars each round and records their positions.
+	 *
+	 * @param rounds Number of rounds to simulate (must be >= 1)
+	 * @return Final RaceResult including round-by-round positions and winners
+	 */
+	fun race(rounds: Int): RaceResult {
+		require(rounds >= 1) {
+			"Rounds must be at least 1."
+		}
+		val roundResults = runAllRounds(rounds)
+		val result = createRaceResult(rounds, roundResults)
+		_history = result
+		return result
+	}
+
+	/**
+	 * Creates a final RaceResult from the completed rounds.
+	 *
+	 * @param rounds Number of total rounds (used for result metadata)
+	 * @param results List of RoundSnapshot containing each round's result
+	 * @return RaceResult with winners and all round data
+	 */
+	private fun createRaceResult(rounds: Int, results: List<RoundSnapshot>): RaceResult {
+		val leadingDistance = getLeadingDistance()
+		val winners = getWinners(leadingDistance)
+		return RaceResult(
+			totalRounds = rounds,
+			raceWinners = winners,
+			roundResults = results
+		)
+	}
+
+	/**
 	 * Simulates the race over multiple rounds.
 	 *
 	 * @param rounds Total number of rounds to simulate
 	 * @return List of RoundSnapshot representing the state after each round
 	 */
-	fun race(rounds: Int) {
-		(1..rounds).fold(RaceResult()) { acc, round ->
+	private fun runAllRounds(rounds: Int): List<RoundSnapshot> {
+		val snapshots = mutableListOf<RoundSnapshot>()
+		for (round in 1..rounds) {
 			moveAllCars()
-			val leadingDistance = cars.maxOf { it.totalDistance() }
-			val roundSnapshot = takeRoundSnapshot(round, leadingDistance)
-			val finalWinners = getWinners(leadingDistance)
-
-			acc.copy(
-				roundResults = acc.roundResults + roundSnapshot,
-				totalRounds = round,
-				raceWinners = finalWinners
-			)
-		}.also { _history = it }
+			val snapshot = takeRoundSnapshot(round)
+			snapshots.add(snapshot)
+		}
+		return snapshots
 	}
 
 	/**
@@ -69,7 +98,6 @@ class RacingGame(private val cars: List<Car>) {
 		return CarSnapshot(
 			name = car.name,
 			position = currentPosition,
-			isWinner = currentPosition == leadingDistance
 		)
 	}
 
