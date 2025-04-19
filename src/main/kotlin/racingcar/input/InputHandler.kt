@@ -20,6 +20,7 @@ object InputHandler {
 			throw e
 		}
 	}
+
 	/* Splits input by comma and removes blank or empty names */
 	private fun parseNames(input: String): List<String> {
 		return input.split(",").map { it.trim() }
@@ -30,7 +31,7 @@ object InputHandler {
 	 *
 	 * @return number of rounds as validated Int
 	 * @throws IllegalArgumentException if input is not a valid round number
-	 *  @see InputValidator.validateRound
+	 * @see [InputValidator.validateRound]
 	 */
 	fun getValidateRound(): Int {
 		try {
