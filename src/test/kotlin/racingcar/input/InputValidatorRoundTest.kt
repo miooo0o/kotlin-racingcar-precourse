@@ -18,4 +18,12 @@ class InputValidatorRoundTest {
 		}
 		assertThat(exception.message).contains("at least")
 	}
+
+	@Test // TODO: Be sure to delete this test if decide not to use MAX_ROUND_COUNT.
+	fun `should fail when round exceeds upper limit`() {
+		val exception = assertThrows<IllegalArgumentException> {
+			InputValidator.validateRound(1001)
+		}
+		assertThat(exception.message).contains("not exceed")
+	}
 }

@@ -9,6 +9,7 @@ object InputValidator {
 
 	private const val MAX_CAR_NAME_LENGTH = 5
 	private const val MIN_ROUND_COUNT = 1
+	private const val MAX_ROUND_COUNT = 1000 // TODO: Consider removing MAX_ROUND_COUNT if upper limit is no longer needed.
 
 	/**
 	 * Validates a list of car names.
@@ -155,10 +156,12 @@ object InputValidator {
 	 *
 	 * @param round the number of rounds entered by the user (1-based)
 	 * @return the validated round number
-	 * @throws IllegalArgumentException if the number is out of bounds (MIN_ROUND_COUNT < )
+	 * @throws IllegalArgumentException if the number is out of bounds ( MIN_ROUND_COUNT ~ MAX_ROUND_COUNT)
 	 */
 	fun validateRound(round: Int): Int {
 		if (round < MIN_ROUND_COUNT) throw IllegalArgumentException("Round must be at least 1.")
+		// TODO: Consider removing MAX_ROUND_COUNT if upper limit is no longer needed.
+		if (round > MAX_ROUND_COUNT) throw IllegalArgumentException("Round must not exceed 1000.")
 		return round
 	}
 }
