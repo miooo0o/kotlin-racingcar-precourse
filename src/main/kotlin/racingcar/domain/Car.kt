@@ -62,13 +62,14 @@ class Car(val name: String) {
 	}
 
 	/**
-	 * Returns the total distance moved up to and including the specified round (1-based).
-	 * For example:
-	 *   round = 1 → includes round 1 (index 0)
-	 *   round = 2 → includes rounds 1 and 2 (index 0 and 1)
-	 * Internally uses `take(round)` since round represents the number of rounds to include.
+	 * Returns the total distance the car has moved up to and including the given round.
 	 *
-	 * @param round the 1-based round number (must be in 1..moves.size)
+	 * For example:
+	 * - round = 1 → includes only round 1 (index 0)
+	 * - round = 2 → includes rounds 1 and 2 (indexes 0 and 1)
+	 *
+	 * @param round 1-based round number (must be in 1..moves.size)
+	 * @return The cumulative distance moved up to and including the specified round
 	 * @throws IllegalArgumentException if round is out of bounds
 	 */
 	fun distanceUntil(round: Int): Int {
