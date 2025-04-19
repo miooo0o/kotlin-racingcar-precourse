@@ -6,6 +6,10 @@ package racingcar.input
  * @throws IllegalArgumentException if any invalid
  */
 object InputValidator {
+
+	private const val MAX_CAR_NAME_LENGTH = 5
+	private const val MIN_ROUND_COUNT = 1
+
 	/**
 	 * Validates a list of car names.
 	 *
@@ -126,7 +130,7 @@ object InputValidator {
 	 * @throws IllegalArgumentException if name is too long
 	 */
 	private fun validateLength(name: String) {
-		if (name.length > 5) throw IllegalArgumentException("Car name must be 5 characters or fewer: '$name'")
+		if (name.length > MAX_CAR_NAME_LENGTH) throw IllegalArgumentException("Car name must be 5 characters or fewer: '$name'")
 	}
 
 	/**
@@ -151,11 +155,10 @@ object InputValidator {
 	 *
 	 * @param round the number of rounds entered by the user (1-based)
 	 * @return the validated round number
-	 * @throws IllegalArgumentException if the number is out of bounds (1~1000) // TODO: create max-round-limit
+	 * @throws IllegalArgumentException if the number is out of bounds (MIN_ROUND_COUNT < )
 	 */
 	fun validateRound(round: Int): Int {
-		if (round < 1) throw IllegalArgumentException("Round must be at least 1.")
-		if (round > 1000) throw IllegalArgumentException("Round must not exceed 1000.")
+		if (round < MIN_ROUND_COUNT) throw IllegalArgumentException("Round must be at least 1.")
 		return round
 	}
 }
