@@ -80,13 +80,3 @@ Implement a simple car racing game in Kotlin.
 ### Git Strategy
 (to be described later)
 
----
-
-### Code
-```txt
- Tag Guide
- [input]    user input
- [IO]       input-output
- [test]     test-related logic
- [logic]    core game logic
- [observer] observer pattern components
