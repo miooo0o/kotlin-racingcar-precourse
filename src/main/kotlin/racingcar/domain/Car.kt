@@ -78,7 +78,12 @@ class Car(val name: String) {
 		return _moves.take(round).sum()
 	}
 
-	fun getRecode() : List<Int> {
+	/**
+	 * Returns a copy of the car's full movement history.
+	 * @return List of movement values per round (0-based index)
+	 */
+
+	fun moveHistory(): List<Int> {
 		return moves
 	}
 }
