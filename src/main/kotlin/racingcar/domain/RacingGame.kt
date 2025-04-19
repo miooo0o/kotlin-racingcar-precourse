@@ -1,9 +1,13 @@
 package racingcar.domain
 
-import camp.nextstep.edu.missionutils.Randoms
 import racingcar.race.RaceResult
 import racingcar.race.RoundSnapshot
-import racingcar.race.CarSnapshot
+
+import racingcar.domain.strategy.MoveStrategy
+import racingcar.domain.strategy.RandomMoveStrategy
+
+import racingcar.race.toRoundSnapshot
+import racingcar.race.toRaceResult
 
 /**
  * RacingGame manages the simulation of a car race.
@@ -22,9 +26,6 @@ class RacingGame(private val cars: List<Car>) {
 	/** Public getter for last recorded race result */
 	val history: RaceResult get() = _history
 
-	/** Returns the latest race result (same as accessing `history` property) */
-	fun getHistory(): RaceResult = history
-
 	/**
 	 * Runs the race for the given number of rounds.
 	 * Moves all cars each round and records their positions.
@@ -37,26 +38,9 @@ class RacingGame(private val cars: List<Car>) {
 			"Rounds must be at least 1."
 		}
 		val roundResults = runAllRounds(rounds)
-		val result = createRaceResult(rounds, roundResults)
+		val result = roundResults.toRaceResult(rounds, cars)
 		_history = result
 		return result
-	}
-
-	/**
-	 * Creates a final RaceResult from the completed rounds.
-	 *
-	 * @param rounds Number of total rounds (used for result metadata)
-	 * @param results List of RoundSnapshot containing each round's result
-	 * @return RaceResult with winners and all round data
-	 */
-	private fun createRaceResult(rounds: Int, results: List<RoundSnapshot>): RaceResult {
-		val leadingDistance = getLeadingDistance()
-		val winners = getWinners(leadingDistance)
-		return RaceResult(
-			totalRounds = rounds,
-			raceWinners = winners,
-			roundResults = results
-		)
 	}
 
 	/**
@@ -82,23 +66,7 @@ class RacingGame(private val cars: List<Car>) {
 	 * @return RoundSnapshot with each car's name and current position
 	 */
 	private fun takeRoundSnapshot(round: Int): RoundSnapshot {
-		val carSnapshots = cars.map { createCarSnapshot(it) }
-		return RoundSnapshot(round, carSnapshots)
-	}
-
-	/**
-	 * Converts a Car into a CarSnapshot (without winner flag).
-	 * Winner marking is handled globally in the RaceResult.
-	 *
-	 * @param car The car to snapshot
-	 * @return CarSnapshot with name and position
-	 */
-	private fun createCarSnapshot(car: Car): CarSnapshot {
-		val currentPosition = car.totalDistance()
-		return CarSnapshot(
-			name = car.name,
-			position = currentPosition,
-		)
+		return cars.toRoundSnapshot(round)
 	}
 
 	/**
@@ -106,26 +74,10 @@ class RacingGame(private val cars: List<Car>) {
 	 * Uses Randoms.pickNumberInRange(0, 9) >= 4 as threshold.
 	 */
 	private fun moveAllCars() {
-		cars.forEach { it.moveIf(Randoms.pickNumberInRange(0, 9) >= 4) }
+		moveAllCarsWith(RandomMoveStrategy())
 	}
 
-	/**
-	 * Calculates the furthest distance reached among all cars.
-	 *
-	 * @return The leading distance
-	 */
-	private fun getLeadingDistance(): Int {
-		return cars.maxOf { it.totalDistance() }
-	}
-
-	/**
-	 * Gets the names of all cars who achieved the leading distance.
-	 *
-	 * @param leadingDistance The maximum distance
-	 * @return List of car names that won the race
-	 */
-	private fun getWinners(leadingDistance: Int): List<String> {
-		return cars.filter { it.totalDistance() == leadingDistance }
-			.map { it.name }
+	fun moveAllCarsWith(strategy: MoveStrategy) {
+		cars.forEach { it.moveIf(strategy.shouldMove()) }
 	}
 }
