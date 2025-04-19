@@ -13,7 +13,8 @@ package racingcar.race
 data class RaceResult(
 	val totalRounds: Int = 0,
 	val raceWinners: List<String> = emptyList(),
-	val roundResults: List<RoundSnapshot> = emptyList()
+	val roundResults: List<RoundSnapshot> = emptyList(),
+	val leadingDistance: Int = 0
 )
 
 /**
