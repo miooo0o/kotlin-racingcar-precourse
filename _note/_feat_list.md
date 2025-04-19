@@ -1,14 +1,16 @@
 #### Feat-list
-_last update: 18. April_
+_last update: 19. April_
 
 ---
 
 ### priority 
 - [x] Car
-- [ ] InputHandler
-- [x] Validate
-- [ ] CarFactory
-
+- [x] InputHandler
+- [x] InputValidator
+- [x] CarFactory
+- [ ] RoundResult ->  RaceResult (DTOs)
+- [ ] RacingGame
+- [ ] OutputView
 ---
 
 ### Project Setup
@@ -20,10 +22,13 @@ _last update: 18. April_
 
 ### Application Logic
 - [ ] Implement `Application.main()` to:
-  - [ ] Get user input
-  - [ ] Parse and validate names
-  - [ ] Read number of rounds
+  - [x] Get user input
+  - [x] Parse and validate names
+  - [x] Read number of rounds
   - [ ] Execute race and show results
+- [ ] Application.kt
+    - [ ] Store racingGame instance for later reference
+    - [ ] Call outputView.print(...) after race
 
 #### InputHandler
 - [x] read input Console.readLine() -> input.Handler
@@ -55,8 +60,22 @@ _last update: 18. April_
   - [x] `fun didMoveAt(round: Int): Boolean` — check whether the car moved at a specific round (1-based)
 
 #### RacingGame
-- [x] Find better name -> RacingGame  
-- [ ] Implement `RacingGame` (manage rounds, notify observers)
+- [x] Find better name -> `RacingGame`
+- [x] Implement `RacingGame` logic and history tracking
+- [ ] Update
+  - [ ] Move _history to FinalResult DTO
+  - [ ] Change race() return type to FinalResult
+
+### RoundResult -> RaceResult (DTOs)
+- [ ] Move RoundResult, CarSnapshot, FinalResult to individual files (or keep together if short)
+- [ ] Rename RoundResult to RaceResult if needed (consistency)
+
+#### OutputView
+- [ ] Create `OutputView` object to display race history
+  - [ ]	Create OutputView object
+  - [ ]	Add printRoundResult(history: List<RaceResult>)
+  - [ ]	Add printFinalWinners(winners: List<String>)
+  - [ ]	Optional: decorate with titles like "Race Results" or "Winners: ..."
 
 ---
 
@@ -65,14 +84,10 @@ _last update: 18. April_
 - [ ] Define and implement `RaceObserver` interface
 - [ ] Create `RaceLogger` to record state history
 
-#### CarSnapshot
-- [ ] Create `CarSnapshot` data class (immutable snapshot, Logging)
 
 ---
 
 ### Testing
-
-
 #### InputValidator / InputHandler
 - [ ] Unit test: invalid names (empty, >5 chars, special chars)
 - [ ] Unit test: invalid round (non-numeric, <1, >MAX_ROUND)
@@ -89,7 +104,6 @@ _last update: 18. April_
 #### RacingGame
 - [ ] Unit test: race logic across multiple rounds
 - [ ] Unit test: handle multiple winners (equal position)
-- 
 
 ---
 
