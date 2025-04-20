@@ -1,24 +1,20 @@
 package racingcar
 
-import racingcar.domain.Car
 import racingcar.input.InputHandler
 import racingcar.factory.CarFactory
 import racingcar.domain.RacingGame
+import racingcar.view.OutputView
 
 fun main() {
-	try {
-		// get lines from console and validate
-		val names : List<String> = InputHandler.getValidateCarNames()
-		val rounds: Int = InputHandler.getValidateRound()
 
-		// init cars from names
-		val cars : List<Car> = CarFactory.fromNames(names)
+	// Read and validate input
+	val names : List<String> = InputHandler.getValidateCarNames()
+	val rounds : Int         = InputHandler.getValidateRound()
 
-		// run RacingGame.race()
-		val game = RacingGame(cars)
+	// Initialize and run game
+	val game = RacingGame(CarFactory.fromNames(names))
+	val result = game.race(rounds)
 
-
-	} catch (e: IllegalArgumentException) {
-		println("Error: Invalid input: ${e.message}")
-	}
+	// Print result
+	OutputView.printOutput(result)
 }
