@@ -14,6 +14,7 @@ package racingcar.domain
  *   - A partial position (up to a round) can be queried for logging or testing.
  */
 class Car(val name: String) {
+
 	/**
 	 * Validates car name length on creation (1~5 characters allowed)
 	 * @throws IllegalArgumentException if condition is not satisfied.
@@ -23,6 +24,7 @@ class Car(val name: String) {
 			"The car name must be at least 1 character and no more than 5 characters. Input value: '$name'"
 		}
 	}
+
 	/** Mutable movement history, where each element is 0 (stayed) or 1 (moved) */
 	private val _moves = mutableListOf<Int>()
 	/** Immutable view of car movement history per round */
@@ -44,26 +46,25 @@ class Car(val name: String) {
 		require(round in 1.. moves.size) {
 			"Round must be between 1 and ${moves.size} (inclusive)"
 		}
-		return _moves[round - 1] == 1
+		val index = round - 1
+		return _moves[index] == 1
 	}
 
 	/**
-	 * Returns true if the car has moved at least once.
+	 * @return true if the car has moved at least once.
 	 */
 	fun hasMove(): Boolean {
 		return _moves.any { it == 1 }
 	}
 
 	/**
-	 * Returns the total distance moved (sum of all movements).
+	 * @return the total distance moved (sum of all movements).
 	 */
 	fun totalDistance(): Int {
 		return _moves.sum()
 	}
 
 	/**
-	 * Returns the total distance the car has moved up to and including the given round.
-	 *
 	 * For example:
 	 * - round = 1 → includes only round 1 (index 0)
 	 * - round = 2 → includes rounds 1 and 2 (indexes 0 and 1)
