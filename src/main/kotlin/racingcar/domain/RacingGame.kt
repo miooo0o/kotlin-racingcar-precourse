@@ -18,19 +18,21 @@ import racingcar.race.toRaceResult
 class RacingGame(private val cars: List<Car>) {
 
 	/**
-	 * Internal storage for race result history.
-	 * Immutable snapshot accessible via public `history` or `getHistory()`.
+	 * This method exists only for test code to inspect internal car state
+	 * @see moveAllCarsWith
+	 * @return Internal list of [Car]s used during race simulation.
 	 */
+	internal fun getCarsForTesting(): List<Car> = cars
+
+	/* Latest RaceResult, updated after each race() call. */
 	private var _history = RaceResult()
 
-	/** Public getter for last recorded race result */
+	/* Public getter for last recorded race result */
 	val history: RaceResult get() = _history
 
 	/**
 	 * Runs the race for the given number of rounds.
-	 * Moves all cars each round and records their positions.
-	 *
-	 * @param rounds Number of rounds to simulate (must be >= 1)
+	 * @param rounds Number of rounds to simulate (must be >= 1, 1-based)
 	 * @return Final RaceResult including round-by-round positions and winners
 	 */
 	fun race(rounds: Int): RaceResult {
@@ -46,7 +48,7 @@ class RacingGame(private val cars: List<Car>) {
 	/**
 	 * Simulates the race over multiple rounds.
 	 *
-	 * @param rounds Total number of rounds to simulate
+	 * @param rounds Total number of rounds to simulate (1-based)
 	 * @return List of RoundSnapshot representing the state after each round
 	 */
 	private fun runAllRounds(rounds: Int): List<RoundSnapshot> {
