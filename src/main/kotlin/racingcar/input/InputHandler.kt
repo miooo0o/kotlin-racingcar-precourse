@@ -35,7 +35,7 @@ object InputHandler {
 	 */
 	fun getValidateRound(): Int {
 		try {
-			println("Enter the number of racing round(1-based): ")
+			println("How many rounds will be played?: ")
 			val input = readInput()
 			val round = parseRound(input)
 			return InputValidator.validateRound(round)
@@ -55,7 +55,14 @@ object InputHandler {
 
 	/** Converts string to Int or throws if invalid */
 	private fun parseRound(input: String): Int {
-		return input.toIntOrNull()
+		val longValue = input.toLongOrNull()
 			?: throw IllegalArgumentException("Input must be a valid number.")
+		if (longValue > Int.MAX_VALUE) {
+			throw IllegalArgumentException("Round number is too large. Maximum allowed is ${Int.MAX_VALUE}.")
+		}
+		if (longValue < 1) {
+			throw IllegalArgumentException("Round must be at least 1.")
+		}
+		return longValue.toInt()
 	}
 }
