@@ -3,7 +3,7 @@ package racingcar.input
 // [IO] Provided API for reading user input (used in Application.main as Console.Readline() )
 import camp.nextstep.edu.missionutils.Console
 
-object InputHandler {
+object InputView {
 	/**
 	 * Prompts user for car names and returns a validated list.
 	 *

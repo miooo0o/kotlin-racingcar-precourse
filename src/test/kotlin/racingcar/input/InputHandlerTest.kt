@@ -12,7 +12,7 @@ class InputHandlerTest : NsTest() {
 	fun `should parse and trim names from comma-separated input`() {
 		assertSimpleTest {
 			run("guri, gugu, ggu")
-			val names = InputHandler.getValidateCarNames()
+			val names = InputView.getValidateCarNames()
 			assertThat(names).containsExactly("guri", "gugu", "ggu")
 		}
 	}
@@ -22,7 +22,7 @@ class InputHandlerTest : NsTest() {
 		assertSimpleTest {
 			run("guri|gugu|ggu")
 			val exception = assertThrows<IllegalArgumentException> {
-				InputHandler.getValidateCarNames()
+				InputView.getValidateCarNames()
 			}
 			assertThat(exception.message).contains("Car name must be 5 characters or fewer")
 		}
@@ -33,7 +33,7 @@ class InputHandlerTest : NsTest() {
 		assertSimpleTest {
 			run(", , ,")
 			val exception = assertThrows<IllegalArgumentException> {
-				InputHandler.getValidateCarNames()
+				InputView.getValidateCarNames()
 			}
 			assertThat(exception.message).contains("cannot be empty")
 		}
