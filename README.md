@@ -169,12 +169,6 @@ Rethinking how functions and data structures should be organised was challenging
 - JDK 21 or higher
 - Kotlin 1.9.24
 
-### Running the Application
-```bash
-# Run the application
-./gradlew run
-```
-
 ### Running Tests
 ```bash
 # For macOS/Linux
