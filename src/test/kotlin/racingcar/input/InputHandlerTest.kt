@@ -28,5 +28,16 @@ class InputHandlerTest : NsTest() {
 		}
 	}
 
+	@Test
+	fun `should fail when input contains only commas or blank names`() {
+		assertSimpleTest {
+			run(", , ,")
+			val exception = assertThrows<IllegalArgumentException> {
+				InputHandler.getValidateCarNames()
+			}
+			assertThat(exception.message).contains("cannot be empty")
+		}
+	}
+
 	override fun runMain() {}
 }
