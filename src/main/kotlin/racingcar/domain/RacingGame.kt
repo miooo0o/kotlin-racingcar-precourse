@@ -40,7 +40,7 @@ class RacingGame(private val cars: List<Car>) {
 			"Rounds must be at least 1."
 		}
 		val roundResults = runAllRounds(rounds)
-		val result = roundResults.toRaceResult(rounds, cars)
+		val result = roundResults.toRaceResult(rounds)
 		_history = result
 		return result
 	}
