@@ -1,4 +1,4 @@
-## kotlin-racingcar-precourse, `Kotlin Racing Car`
+## kotlin-baseball-precourse, `Kotlin Racing Car`
 A simple console-based car racing simulation game implemented in Kotlin. Cars move forward based on random number generation, with clear separation of concerns and robust error handling.
 
 ## Project Overview
@@ -104,7 +104,7 @@ This project implements a car racing game with the following key features:
 The project follows clean architecture principles with clear separation of concerns:
 
 ```
-racingcar/
+baseball/
 ├── domain/            # Core business logic
 │   ├── Car.kt         # Car entity with movement tracking
 │   ├── RacingGame.kt  # Race simulation logic
